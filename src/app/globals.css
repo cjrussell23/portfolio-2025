@@ -2,20 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  font-family: "Lato", sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Exo 2", sans-serif;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    /* Dark Theme Variables */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 25 90% 61%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      /* Light Theme Variables */
+      --background: 0 0% 100%;
+      --foreground: 0 0% 10%;
+      --card: 0 0% 98%;
+      --card-foreground: 0 0% 10%;
+      --popover: 0 0% 98%;
+      --popover-foreground: 0 0% 10%;
+      --primary: 220 15% 95%;
+      --primary-foreground: 220 20% 20%;
+      --secondary: 220 15% 85%;
+      --secondary-foreground: 0 0% 10%;
+      --muted: 220 20% 90%;
+      --muted-foreground: 220 10% 40%;
+      --accent: 220 40% 85%;
+      --accent-foreground: 0 0% 10%;
+      --destructive: 0 62.8% 50%;
+      --destructive-foreground: 0 0% 10%;
+      --border: 220 10% 80%;
+      --input: 0 0% 95%;
+      --ring: 220 40% 70%;
+      --chart-1: 200 90% 45%;
+      --chart-2: 140 70% 40%;
+      --chart-3: 40 80% 50%;
+      --chart-4: 270 60% 50%;
+      --chart-5: 330 70% 50%;
+      --sidebar-background: 220 15% 95%;
+      --sidebar-foreground: 0 0% 10%;
+      --sidebar-primary: 220 60% 50%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 220 20% 85%;
+      --sidebar-accent-foreground: 0 0% 10%;
+      --sidebar-border: 220 15% 80%;
+      --sidebar-ring: 220 50% 60%;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  p {
+    @apply text-muted-foreground;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+
+  @media (min-width: 768px) {
+    h2 {
+      @apply text-3xl;
+    }
+    h3 {
+      @apply text-xl;
+    }
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    transition: background-color 5000s;
+    -webkit-text-fill-color: hsl(var(--foreground));
+    -webkit-box-shadow: 0 0 0px 1000px hsl(var(--foreground) / 10%) inset;
+  }
 }
