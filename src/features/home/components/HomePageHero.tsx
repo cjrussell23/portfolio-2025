@@ -21,25 +21,21 @@ export default function HomePageHero() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap gap-2 md:gap-4">
-            {socials.map(({ title, href, icon: Icon }, index) => (
-              <div key={index}>
-                <Link key={index} href={href} target="_blank">
-                  <ShineButton>
-                    <Icon className="md:text-lg" />
-                    {title}
-                  </ShineButton>
-                </Link>
-                <pre>
-                  {JSON.stringify(
-                    {
-                      props: Icon().props,
-                    },
-                    null,
-                    2,
-                  )}
-                </pre>
-              </div>
-            ))}
+            {socials.map(({ href, website }, index) => {
+              if (!website) {
+                return null;
+              }
+              return (
+                <div key={index}>
+                  <Link key={index} href={href} target="_blank">
+                    <ShineButton>
+                      <website.icon className="md:text-lg" />
+                      {website.title}
+                    </ShineButton>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
