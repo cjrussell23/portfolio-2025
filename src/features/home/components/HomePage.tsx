@@ -17,6 +17,14 @@ export default function HomePage() {
         <Projects />
         <SkillsTabs />
         <ContactForm />
+        {/* Footer with copyright */}
+
+        <footer className="flex items-center justify-center gap-2 text-muted-foreground">
+          <p>
+            Design and developed by Charles Russell. &copy;{" "}
+            {new Date().getFullYear()} - All rights reserved
+          </p>
+        </footer>
       </main>
     </div>
   );
