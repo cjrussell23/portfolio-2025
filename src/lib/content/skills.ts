@@ -1,12 +1,12 @@
 import Axiom from "@/features/skills/components/Axiom";
 import { FaJava } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
-import { SiDrizzle, SiExpress, SiFastapi, SiPayloadcms, SiPrettier, SiReacthookform, SiShadcnui, SiZod } from "react-icons/si";
-import { TbBrandAdobe, TbBrandCSharp, TbBrandCss3, TbBrandFigma, TbBrandFramerMotion, TbBrandGithub, TbBrandGithubCopilot, TbBrandGraphql, TbBrandHtml5, TbBrandJavascript, TbBrandNextjs, TbBrandPhp, TbBrandPowershell, TbBrandPython, TbBrandReact, TbBrandSass, TbBrandTailwind, TbBrandTypescript, TbBrandVscode, TbBrandWordpress, TbFileTypeSql, TbTable, TbTerminal } from "react-icons/tb";
+import { SiDigitalocean, SiDrizzle, SiExpress, SiFastapi, SiGooglecloud, SiMysql, SiPayloadcms, SiPostgresql, SiPrettier, SiPrisma, SiReacthookform, SiRedis, SiSalesforce, SiShadcnui, SiZod } from "react-icons/si";
+import { TbBrandAdobe, TbBrandAws, TbBrandAzure, TbBrandCSharp, TbBrandCss3, TbBrandFigma, TbBrandFirebase, TbBrandFramerMotion, TbBrandGithub, TbBrandGithubCopilot, TbBrandGraphql, TbBrandHtml5, TbBrandJavascript, TbBrandNextjs, TbBrandPhp, TbBrandPowershell, TbBrandPython, TbBrandReact, TbBrandSass, TbBrandTailwind, TbBrandTypescript, TbBrandVercel, TbBrandVscode, TbBrandWordpress, TbFileTypeSql, TbTable, TbTerminal } from "react-icons/tb";
 
 type SkillCategory = {
-  name: "Languages",
-  subCategory: "Programming" | "Markup" | "Query" | "Scripting"
+  name: "Progamming",
+  subCategory?: never
 } | {
   name: "Frameworks",
   subCategory: "Fullstack" | "Frontend" | "Backend"
@@ -16,6 +16,15 @@ type SkillCategory = {
 } | {
   name: "Tools",
   subCategory: "Design" | "Development"
+} | {
+  name: "Cloud",
+  subCategory?: never
+} | {
+  name: "Databases",
+  subCategory: "SQL" | "NoSQL"
+} | {
+  name: "Other Languages",
+  subCategory: "Markup" | "Query" | "Scripting"
 }
 
 export type Skill = {
@@ -34,8 +43,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandTypescript,
     favoutite: true,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     },
     link: "https://www.typescriptlang.org/"
   },
@@ -45,8 +53,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandPython,
     favoutite: false,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     }
   },
   Java: {
@@ -55,8 +62,7 @@ export const skills: Record<string, Skill> = {
     icon: FaJava,
     favoutite: false,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     }
   },
   CSharp: {
@@ -65,8 +71,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandCSharp,
     favoutite: false,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     }
   },
   PHP: {
@@ -75,8 +80,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandPhp,
     favoutite: false,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     }
   },
   JavaScript: {
@@ -85,8 +89,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandJavascript,
     favoutite: false,
     category: {
-      name: "Languages",
-      subCategory: "Programming"
+      name: "Progamming"
     },
     link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
   },
@@ -96,7 +99,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandHtml5,
     favoutite: false,
     category: {
-      name: "Languages",
+      name: "Other Languages",
       subCategory: 'Markup'
     }
   },
@@ -106,7 +109,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandCss3,
     favoutite: false,
     category: {
-      name: "Languages",
+      name: "Other Languages",
       subCategory: 'Markup'
     }
   },
@@ -116,7 +119,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandSass,
     favoutite: false,
     category: {
-      name: "Languages",
+      name: "Other Languages",
       subCategory: 'Markup'
     }
   },
@@ -126,7 +129,7 @@ export const skills: Record<string, Skill> = {
     icon: TbFileTypeSql,
     favoutite: false,
     category: {
-      name: "Languages",
+      name: "Other Languages",
       subCategory: 'Query'
     }
   },
@@ -201,7 +204,7 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandGraphql,
     favoutite: false,
     category: {
-      name: 'Languages',
+      name: 'Other Languages',
       subCategory: 'Query'
     },
   },
@@ -356,7 +359,7 @@ export const skills: Record<string, Skill> = {
     icon: TbTerminal,
     favoutite: false,
     category: {
-      name: 'Languages',
+      name: 'Other Languages',
       subCategory: 'Scripting'
     },
   },
@@ -366,10 +369,159 @@ export const skills: Record<string, Skill> = {
     icon: TbBrandPowershell,
     favoutite: false,
     category: {
-      name: 'Languages',
+      name: 'Other Languages',
       subCategory: 'Scripting'
     },
+  },
+  Azure: {
+    name: "Azure",
+    description: "A cloud computing platform offering a wide range of services for building and deploying applications.",
+    icon: TbBrandAzure,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+    },
+    link: "https://azure.microsoft.com/"
+  },
+  AWS: {
+    name: "AWS",
+    description: "A comprehensive cloud platform providing a suite of services for building and deploying applications.",
+    icon: TbBrandAws,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+    },
+    link: "https://aws.amazon.com/"
+  },
+  Vercel: {
+    name: "Vercel",
+    description: "A cloud platform for deploying serverless functions and static sites with ease.",
+    icon: TbBrandVercel,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+    },
+    link: "https://vercel.com/"
+  },
+  GoogleCloud: {
+    name: "Google Cloud",
+    description: "A suite of cloud computing services for building and deploying applications on Google's infrastructure.",
+    icon: SiGooglecloud,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+    },
+    link: "https://cloud.google.com/"
+  },
+  Github: {
+    name: "GitHub",
+    description: "A platform for hosting and collaborating on code, enabling version control and project management.",
+    icon: TbBrandGithub,
+    favoutite: false,
+    category: {
+      name: 'Tools',
+      subCategory: 'Development'
+    },
+    link: "https://github.com"
+  },
+  DigitalOcean: {
+    name: "DigitalOcean",
+    description: "A cloud platform for deploying and managing virtual servers, databases, and other infrastructure.",
+    icon: SiDigitalocean,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+    },
+    link: "https://www.digitalocean.com/"
+  },
+  PostgreSQL: {
+    name: "PostgreSQL",
+    description: "A powerful open-source relational database known for its robust features and performance.",
+    icon: SiPostgresql,
+    favoutite: false,
+    category: {
+      name: 'Databases',
+      subCategory: 'SQL'
+    },
+    link: "https://www.postgresql.org/"
+  },
+  MySQL: {
+    name: "MySQL",
+    description: "An open-source relational database that is widely used for web applications.",
+    icon: SiMysql,
+    favoutite: false,
+    category: {
+      name: 'Databases',
+      subCategory: 'SQL'
+    },
+    link: "https://www.mysql.com/"
+  },
+  MongoDB: {
+    name: "MongoDB",
+    description: "A popular NoSQL database known for its flexibility and scalability.",
+    icon: TbBrandAws,
+    favoutite: false,
+    category: {
+      name: 'Databases',
+      subCategory: 'NoSQL'
+    },
+    link: "https://www.mongodb.com/"
+  },
+  Firebase: {
+    name: "Firebase",
+    description: "A platform for building mobile and web applications with a suite of cloud services.",
+    icon: TbBrandFirebase,
+    favoutite: false,
+    category: {
+      name: 'Databases',
+      subCategory: 'NoSQL'
+    },
+    link: "https://firebase.google.com/"
+  },
+  Redis: {
+    name: "Redis",
+    description: "An in-memory data structure store used as a database, cache, and message broker.",
+    icon: SiRedis,
+    favoutite: false,
+    category: {
+      name: 'Databases',
+      subCategory: 'NoSQL'
+    },
+    link: "https://redis.io/"
+  },
+  Prisma: {
+    name: "Prisma",
+    description: "A modern database toolkit for building type-safe, performant database queries.",
+    icon: SiPrisma,
+    favoutite: false,
+    category: {
+      name: 'Libraries',
+      subCategory: 'Backend'
+    },
+    link: "https://www.prisma.io/"
+  },
+  Salesforce: {
+    name: "Salesforce",
+    description: "A cloud-based CRM platform for managing sales, customer service, and marketing.",
+    icon: SiSalesforce,
+    favoutite: false,
+    category: {
+      name: 'Cloud',
+
+    },
+    link: "https://www.salesforce.com/"
+  },
+  Apex: {
+    name: "Apex",
+    description: "A strongly typed, object-oriented programming language used in Salesforce development.",
+    icon: SiSalesforce,
+    favoutite: false,
+    category: {
+      name: 'Progamming'
+    },
+    link: "https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/"
   }
+
 };
 
 

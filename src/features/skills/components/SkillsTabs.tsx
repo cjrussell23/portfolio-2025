@@ -48,7 +48,7 @@ export default function SkillsTabs() {
     };
   });
   return (
-    <section className="flex h-[58rem] flex-col gap-4" id="skills">
+    <section className="flex flex-col gap-4" id="skills">
       <Tabs tabs={tabs} />
     </section>
   );

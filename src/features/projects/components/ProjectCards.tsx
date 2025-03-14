@@ -45,7 +45,11 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
       <h2>Projects</h2>
       <p className="text-muted-foreground">
         These are my public repositories pulled from my GitHub account using the
-        GitHub API.
+        GitHub API. This mostly contains projects that I worked on in my free
+        time while I was in school and learning to code. The code quality may
+        vary as I was learning new things and experimenting so it does not
+        reflect my current coding style. However, I am proud of the work I did
+        and it is still useful to look back on.
       </p>
       <AnimatePresence>
         {active && (
@@ -179,21 +183,20 @@ function Project(props: ProjectProps) {
                 })}
               </motion.span>
             </div>
-            {isPreview && " -"}
-            <div className="flex gap-1">
-              {!isPreview && (
+            {!isPreview && (
+              <div className="flex gap-1">
                 <p className="text-sm text-muted-foreground">Last Updated:</p>
-              )}
-              <motion.span
-                layoutId={`updated-${repo.repo.id}-${id}`}
-                key={`updated-${repo.repo.id}-${id}`}
-              >
-                {new Date(repo.repo.updated_at).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })}
-              </motion.span>
-            </div>
+                <motion.span
+                  layoutId={`updated-${repo.repo.id}-${id}`}
+                  key={`updated-${repo.repo.id}-${id}`}
+                >
+                  {new Date(repo.repo.updated_at).toLocaleDateString("en-US", {
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </motion.span>
+              </div>
+            )}
           </motion.div>
           <motion.div
             layoutId={`tags-${repo.repo.id}-${id}`}

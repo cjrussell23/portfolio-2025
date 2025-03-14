@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 type Tab = {
   title: string;
@@ -26,7 +26,7 @@ export const Tabs = ({
 }) => {
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
-
+  const id = useId();
   const moveSelectedTabToTop = (idx: number) => {
     const newTabs = [...propTabs];
     const selectedTab = newTabs.splice(idx, 1);
@@ -39,12 +39,12 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "relative flex w-fit max-w-full flex-row items-center justify-start rounded-full bg-card p-2",
+          "relative flex w-fit max-w-full flex-row flex-wrap items-center justify-start rounded-full bg-card p-2",
           containerClassName,
         )}
       >
         {propTabs.map((tab, idx) => (
-          <button
+          <motion.button
             key={tab.title}
             onClick={() => {
               moveSelectedTabToTop(idx);
@@ -56,7 +56,7 @@ export const Tabs = ({
           >
             {active.value === tab.value && (
               <motion.div
-                layoutId="clickedbutton"
+                layoutId={`clicked-tab-${id}`}
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
                   "absolute inset-0 rounded-full bg-primary text-primary-foreground",
@@ -65,7 +65,7 @@ export const Tabs = ({
               />
             )}
             <h2 className="relative block text-sm md:text-lg">{tab.title}</h2>
-          </button>
+          </motion.button>
         ))}
       </div>
       <FadeInDiv

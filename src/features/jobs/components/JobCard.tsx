@@ -56,29 +56,25 @@ export function JobCard(props: JobCardProps) {
             key={`card-header-${job.title}-${id}`}
             className={`${isPreview ? "p-4" : "p-8"} flex flex-col gap-2`}
           >
-            <motion.h2
-              layoutId={`title-${job.title}-${id}`}
-              key={`title-${job.title}-${id}`}
-              className={`${isPreview ? "text-xl" : "text-3xl"} font-semibold leading-none tracking-tight`}
-            >
-              {job.title}
-            </motion.h2>
-            <motion.h3
-              layoutId={`company-${job.title}-${id}`}
-              className="text-sm italic text-muted-foreground"
-              key={`company-${job.title}-${id}`}
-            >
-              {job.company}
-            </motion.h3>
-
-            <motion.div
-              layoutId={`description-${job.title}-${id}`}
-              key={`description-${job.title}-${id}`}
-            >
-              {isPreview ? (
-                <motion.p>{job.description.preview}</motion.p>
-              ) : (
-                <>
+            <motion.div className="flex justify-between gap-1">
+              <motion.div>
+                <motion.h2
+                  layoutId={`title-${job.title}-${id}`}
+                  key={`title-${job.title}-${id}`}
+                  className={`${isPreview ? "text-xl" : "text-3xl"} font-semibold leading-none tracking-tight`}
+                >
+                  {job.title}
+                </motion.h2>
+                <motion.h3
+                  layoutId={`company-${job.title}-${id}`}
+                  className="text-sm italic text-muted-foreground"
+                  key={`company-${job.title}-${id}`}
+                >
+                  {job.company}
+                </motion.h3>
+              </motion.div>
+              {!isPreview && (
+                <motion.div>
                   <motion.p>
                     {`${new Date(job.date.start).toLocaleDateString("en-US", {
                       month: "short",
@@ -94,14 +90,16 @@ export function JobCard(props: JobCardProps) {
               `}
                   </motion.p>
                   <motion.p>{job.location}</motion.p>
-
-                  <motion.p
-                    className={`${isPreview ? "text-sm" : "pt-8 text-lg"} text-muted-foreground`}
-                  >
-                    {job.description.content}
-                  </motion.p>
-                </>
+                </motion.div>
               )}
+            </motion.div>
+
+            <motion.div
+              layoutId={`description-${job.title}-${id}`}
+              key={`description-${job.title}-${id}`}
+              className={`${isPreview ? "text-sm" : "flex flex-col gap-2 pt-8 text-base"} text-muted-foreground`}
+            >
+              {isPreview ? job.description.preview : job.description.content}
             </motion.div>
           </motion.div>
         </motion.div>
