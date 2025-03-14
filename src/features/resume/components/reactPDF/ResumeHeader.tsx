@@ -34,7 +34,7 @@ export function ResumeHeader() {
           marginBottom: 10,
         }}
       >
-        Web Developer
+        Full Stack Software Developer
       </Text>
       <View
         style={{

@@ -10,6 +10,7 @@ export default function WorkExperience() {
         return job;
       })}
       title="Work Experience"
+      id="work-experience"
     />
   );
 }

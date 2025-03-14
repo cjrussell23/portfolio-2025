@@ -8,7 +8,12 @@ export function FavSkills() {
       <div>
         <h2>Preferred Stack</h2>
         <p className="text-muted-foreground">
-          Here are some of the technologies I love working with.
+          {`These are my preferred tools for building fast, scalable applications with a great developer and user experience. I'm always looking to learn new technologies and improve my skills.`}
+          <a href="#skills" className="text-foreground">
+            {" "}
+            Click here
+          </a>
+          {` to learn more about the technologies and tools I use.`}
         </p>
       </div>
       <HoverEffect

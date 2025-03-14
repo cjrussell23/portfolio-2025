@@ -41,7 +41,7 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
   useOutsideClick(ref, () => setActive(null));
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4" id="projects">
       <h2>Projects</h2>
       <p className="text-muted-foreground">
         These are my public repositories pulled from my GitHub account using the

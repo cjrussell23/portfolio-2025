@@ -1,5 +1,4 @@
 import ContactForm from "@/features/contact/components/ContactForm";
-import Education from "@/features/education/components/Education";
 import Projects from "@/features/projects/projects";
 import WorkExperience from "../../jobs/components/WorkExperience";
 import { FavSkills } from "../../skills/components/FavSkills";
@@ -11,7 +10,7 @@ export default function HomePage() {
     <div className="mx-auto max-w-screen-lg">
       <main className="flex size-full grow flex-col gap-16 p-4 pb-32">
         <HomePageHero />
-        <Education />
+        {/* <Education /> */}
         <FavSkills />
 
         <WorkExperience />

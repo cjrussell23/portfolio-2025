@@ -2,7 +2,8 @@
 import ShineButton from "@/components/ShineButton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
+import { forwardRef } from "react";
 import { IoIosExpand } from "react-icons/io";
 import { Job } from "../../../lib/content/jobs";
 type JobCardProps =
@@ -19,6 +20,14 @@ type JobCardProps =
       ref: React.RefObject<HTMLDivElement>;
     };
 
+const ExoticImage = forwardRef<HTMLImageElement, ImageProps>(
+  function ExoticImageWrapper(props, ref) {
+    return <Image {...props} ref={ref} />;
+  },
+);
+
+const MotionComponent = motion(ExoticImage);
+
 export function JobCard(props: JobCardProps) {
   const { job, id, isPreview } = props;
   return (
@@ -34,12 +43,12 @@ export function JobCard(props: JobCardProps) {
           key={`card-header-${job.title}-${id}`}
           className="flex flex-col space-y-1.5"
         >
-          <Image
+          <MotionComponent
             src={job.image.src}
             alt={job.image.alt}
             width={job.image.width}
             height={job.image.height}
-            className="aspect-video w-full rounded-t-xl object-cover object-top"
+            className={`aspect-video w-full rounded-t-xl object-cover object-top ${isPreview ? "" : "h-48"}`}
           />
 
           <motion.div
@@ -56,78 +65,44 @@ export function JobCard(props: JobCardProps) {
             </motion.h2>
             <motion.h3
               layoutId={`company-${job.title}-${id}`}
-              className="text-sm text-muted-foreground"
+              className="text-sm italic text-muted-foreground"
               key={`company-${job.title}-${id}`}
             >
               {job.company}
             </motion.h3>
 
             <motion.div
-              layoutId={`dates-${job.title}-${id}`}
-              className={`flex gap-1 text-sm text-muted-foreground`}
-              key={`dates-${job.title}-${id}`}
+              layoutId={`description-${job.title}-${id}`}
+              key={`description-${job.title}-${id}`}
             >
-              {!isPreview &&
-                `${new Date(job.date.start).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })} - ${
-                  job.date.end
-                    ? new Date(job.date.end).toLocaleDateString("en-US", {
-                        month: "short",
-                        year: "numeric",
-                      })
-                    : "Present"
-                }
+              {isPreview ? (
+                <motion.p>{job.description.preview}</motion.p>
+              ) : (
+                <>
+                  <motion.p>
+                    {`${new Date(job.date.start).toLocaleDateString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                    })} - ${
+                      job.date.end
+                        ? new Date(job.date.end).toLocaleDateString("en-US", {
+                            month: "short",
+                            year: "numeric",
+                          })
+                        : "Present"
+                    }
               `}
-            </motion.div>
+                  </motion.p>
+                  <motion.p>{job.location}</motion.p>
 
-            <motion.div
-              layoutId={`location-${job.title}-${id}`}
-              className="text-sm text-muted-foreground"
-              key={`location-${job.title}-${id}`}
-            >
-              {!isPreview && job.location}
+                  <motion.p
+                    className={`${isPreview ? "text-sm" : "pt-8 text-lg"} text-muted-foreground`}
+                  >
+                    {job.description.content}
+                  </motion.p>
+                </>
+              )}
             </motion.div>
-
-            <motion.ul
-              className={`${isPreview ? "" : "mt-4"} flex flex-col gap-4`}
-              layoutId={`card-content-${job.title}-${id}`}
-              key={`card-content-${job.title}-${id}`}
-            >
-              <motion.li
-                className={`${isPreview ? "text-muted-foreground" : "flex flex-col gap-2 rounded-xl border p-4"} `}
-              >
-                {isPreview ? (
-                  job.description.content
-                ) : (
-                  <>
-                    <job.description.icon className="text-3xl" />
-                    <span className="text-muted-foreground">
-                      {job.description.content}
-                    </span>
-                  </>
-                )}
-              </motion.li>
-              {!isPreview &&
-                job.points.map((point, index) => {
-                  const Icon = point.icon;
-                  return (
-                    <motion.li
-                      key={index}
-                      className="flex flex-col gap-2 rounded-xl border p-4"
-                      initial={{ x: -500, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.2 * (index + 1) }}
-                    >
-                      <Icon className="text-3xl" />
-                      <span className="text-muted-foreground">
-                        {point.content}
-                      </span>
-                    </motion.li>
-                  );
-                })}
-            </motion.ul>
           </motion.div>
         </motion.div>
         <motion.div

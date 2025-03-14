@@ -8,21 +8,22 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TbX } from "react-icons/tb";
 
 export const TimelineModal = ({
   data,
   title,
+  id,
 }: {
   data: Job[];
   title: string;
+  id: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
   const [active, setActive] = useState<Job | null>(null);
-  const id = useId();
   const cardRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -95,7 +96,7 @@ export const TimelineModal = ({
           </div>
         )}
       </AnimatePresence>
-      <h2 className="mb-8 font-bold lg:mb-16">{title}</h2>
+      <h2 className="mb-8 lg:mb-16">{title}</h2>
       <div
         ref={ref}
         className="relative mx-auto flex max-w-7xl flex-col gap-20 pb-20 md:gap-40"
