@@ -2,6 +2,8 @@
 
 A modern, responsive portfolio website showcasing my professional work and skills.
 
+![Portfolio2025-ezgif com-optimize](https://github.com/user-attachments/assets/ab667cbe-ea10-4164-a31a-2c4ba9e281bd)
+
 ## Features
 
 - Responsive design for all devices
