@@ -41,10 +41,12 @@ export function JobCard(props: JobCardProps) {
       ref={isPreview ? null : props.ref}
       className="m-2 flex flex-col justify-between rounded-xl border bg-card text-card-foreground shadow md:max-w-screen-md"
     >
-      <ScrollArea className={`${isPreview ? null : "h-[calc(100vh-4rem)]"}`}>
+      <ScrollArea
+        className={`${isPreview ? null : "flex h-[calc(100vh-7rem)]"}`}
+      >
         <motion.div
           layoutId={`content-${job.title}-${id}`}
-          key={`card-header-${job.title}-${id}`}
+          key={`card-content-${job.title}-${id}`}
           className="flex flex-col space-y-1.5"
         >
           <MotionComponent
@@ -107,54 +109,54 @@ export function JobCard(props: JobCardProps) {
             </motion.div>
           </motion.div>
         </motion.div>
-        <motion.div
-          className="flex items-center justify-between gap-4 p-6 pt-0"
-          layoutId={`card-footer-${job.title}-${id}`}
-          key={`card-footer-${job.title}-${id}`}
-        >
-          {isPreview ? (
-            <ShineButton onClick={() => props.setActive(job)}>
-              <IoIosExpand className="text-lg" />
-              View
-            </ShineButton>
-          ) : (
-            <>
-              <ShineButton onClick={() => setActive(null)}>
-                <IoClose className="text-lg" />
-                Close
-              </ShineButton>
-              <div className="flex gap-4">
-                <ShineButton
-                  onClick={() =>
-                    setActive(
-                      props.jobs[
-                        (props.jobs.indexOf(job) + props.jobs.length - 1) %
-                          props.jobs.length
-                      ],
-                    )
-                  }
-                >
-                  <IoArrowBack className="text-lg" />
-                  Previous
-                </ShineButton>
-
-                <ShineButton
-                  onClick={() =>
-                    setActive(
-                      props.jobs[
-                        (props.jobs.indexOf(job) + 1) % props.jobs.length
-                      ],
-                    )
-                  }
-                >
-                  Next
-                  <IoArrowForward className="text-lg" />
-                </ShineButton>
-              </div>
-            </>
-          )}
-        </motion.div>
       </ScrollArea>
+      <motion.div
+        className="flex items-center justify-between gap-4 p-6 pt-4"
+        layoutId={`card-footer-${job.title}-${id}`}
+        key={`card-footer-${job.title}-${id}`}
+      >
+        {isPreview ? (
+          <ShineButton onClick={() => props.setActive(job)}>
+            <IoIosExpand className="text-lg" />
+            View
+          </ShineButton>
+        ) : (
+          <>
+            <ShineButton onClick={() => setActive(null)}>
+              <IoClose className="text-lg" />
+              Close
+            </ShineButton>
+            <div className="flex gap-4">
+              <ShineButton
+                onClick={() =>
+                  setActive(
+                    props.jobs[
+                      (props.jobs.indexOf(job) + props.jobs.length - 1) %
+                        props.jobs.length
+                    ],
+                  )
+                }
+              >
+                <IoArrowBack className="text-lg" />
+                Previous
+              </ShineButton>
+
+              <ShineButton
+                onClick={() =>
+                  setActive(
+                    props.jobs[
+                      (props.jobs.indexOf(job) + 1) % props.jobs.length
+                    ],
+                  )
+                }
+              >
+                Next
+                <IoArrowForward className="text-lg" />
+              </ShineButton>
+            </div>
+          </>
+        )}
+      </motion.div>
     </motion.article>
   );
 }

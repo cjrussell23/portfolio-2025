@@ -87,7 +87,7 @@ export const TimelineModal = ({
                   duration: 0.05,
                 },
               }}
-              className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
+              className="absolute right-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
               onClick={() => setActive(null)}
             >
               <TbX className="text-lg text-background" />
