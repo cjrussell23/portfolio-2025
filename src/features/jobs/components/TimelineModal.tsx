@@ -92,7 +92,14 @@ export const TimelineModal = ({
             >
               <TbX className="text-lg text-background" />
             </motion.button>
-            <JobCard job={active} ref={cardRef} id={id} isPreview={false} />
+            <JobCard
+              job={active}
+              ref={cardRef}
+              id={id}
+              isPreview={false}
+              setActive={setActive}
+              jobs={data}
+            />
           </div>
         )}
       </AnimatePresence>
@@ -128,7 +135,7 @@ export const TimelineModal = ({
             </div>
 
             <div className="relative w-full pl-12 pr-0 md:pl-4 md:pr-4">
-              <div className="mb-4 flex items-center gap-2 text-left text-2xl font-bold md:hidden">
+              <div className="mb-4 flex items-center gap-2 text-left font-bold md:hidden">
                 <h3>
                   {item.date.start.toLocaleDateString("en-US", {
                     month: "short",

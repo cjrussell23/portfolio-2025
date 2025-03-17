@@ -12,6 +12,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { CiGlobe } from "react-icons/ci";
 import { TbBrandGithub } from "react-icons/tb";
 
+import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
 import { GithubRepo } from "../projects";
 import Readme from "./Readme";
 
@@ -84,7 +85,14 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
             >
               <CloseIcon />
             </motion.button>
-            <Project repo={active} id={id} ref={ref} isPreview={false} />
+            <Project
+              repo={active}
+              id={id}
+              ref={ref}
+              isPreview={false}
+              setActive={setActive}
+              repos={repos}
+            />
           </div>
         )}
       </AnimatePresence>
@@ -108,17 +116,19 @@ type ProjectProps =
       repo: GithubRepo;
       id: string;
       isPreview: true;
-      setActive: (repo: GithubRepo) => void;
+      setActive: (repo: GithubRepo | null) => void;
     }
   | {
       repo: GithubRepo;
       id: string;
       isPreview?: false;
       ref: React.RefObject<HTMLDivElement>;
+      setActive: (repo: GithubRepo | null) => void;
+      repos: GithubRepo[];
     };
 
 function Project(props: ProjectProps) {
-  const { repo, id, isPreview } = props;
+  const { repo, id, isPreview, setActive } = props;
 
   // Parse the readme an look for the first image tag
   let image: string | null = null;
@@ -255,39 +265,89 @@ function Project(props: ProjectProps) {
         </motion.div>
       </motion.div>
       <motion.div
-        className="flex items-center gap-4 p-6 pt-0"
+        className={`flex gap-4 p-6 pt-0 ${isPreview ? "items-center" : "flex-col"}`}
         layoutId={`card-footer-${repo.repo.id}-${id}`}
         key={`card-footer-${repo.repo.id}-${id}`}
       >
         {isPreview ? (
-          <ShineButton onClick={() => props.setActive(repo)}>
-            <IoIosExpand className="text-lg" />
-            View
-          </ShineButton>
+          <>
+            <ShineButton onClick={() => props.setActive(repo)}>
+              <IoIosExpand className="text-lg" />
+              View
+            </ShineButton>
+            {repo.repo.homepage && (
+              <Link
+                href={repo.repo.homepage}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ShineButton>
+                  <CiGlobe className="text-lg" />
+                  Live
+                </ShineButton>
+              </Link>
+            )}
+          </>
         ) : (
-          <Link
-            href={repo.repo.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ShineButton>
-              <TbBrandGithub className="text-lg" />
-              Source
-            </ShineButton>
-          </Link>
-        )}
-
-        {repo.repo.homepage && (
-          <Link
-            href={repo.repo.homepage}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <ShineButton>
-              <CiGlobe className="text-lg" />
-              Live
-            </ShineButton>
-          </Link>
+          <>
+            <div className="flex gap-4">
+              {repo.repo.homepage && (
+                <Link
+                  href={repo.repo.homepage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ShineButton>
+                    <CiGlobe className="text-lg" />
+                    Live
+                  </ShineButton>
+                </Link>
+              )}
+              <Link
+                href={repo.repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ShineButton>
+                  <TbBrandGithub className="text-lg" />
+                  Source
+                </ShineButton>
+              </Link>
+            </div>
+            <div className="flex justify-between gap-4">
+              <ShineButton onClick={() => setActive(null)}>
+                <IoClose className="text-lg" />
+                Close
+              </ShineButton>
+              <div className="flex gap-4">
+                <ShineButton
+                  onClick={() =>
+                    setActive(
+                      props.repos[
+                        (props.repos.indexOf(repo) + props.repos.length - 1) %
+                          props.repos.length
+                      ],
+                    )
+                  }
+                >
+                  <IoArrowBack className="text-lg" />
+                  Previous
+                </ShineButton>
+                <ShineButton
+                  onClick={() =>
+                    setActive(
+                      props.repos[
+                        (props.repos.indexOf(repo) + 1) % props.repos.length
+                      ],
+                    )
+                  }
+                >
+                  Next
+                  <IoArrowForward className="text-lg" />
+                </ShineButton>
+              </div>
+            </div>
+          </>
         )}
       </motion.div>
     </motion.article>

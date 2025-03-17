@@ -19,11 +19,9 @@ export default function HomePage() {
         <ContactForm />
         {/* Footer with copyright */}
 
-        <footer className="flex items-center justify-center gap-2 text-muted-foreground">
-          <p>
-            Design and developed by Charles Russell. &copy;{" "}
-            {new Date().getFullYear()} - All rights reserved
-          </p>
+        <footer className="flex flex-col items-center justify-center gap-2 text-muted-foreground md:flex-row">
+          <p>Design and developed by Charles Russell.</p>
+          <p>&copy; {new Date().getFullYear()} - All rights reserved</p>
         </footer>
       </main>
     </div>

@@ -5,19 +5,22 @@ import { motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import { forwardRef } from "react";
 import { IoIosExpand } from "react-icons/io";
+import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
 import { Job } from "../../../lib/content/jobs";
 type JobCardProps =
   | {
       job: Job;
       id: string;
       isPreview: true;
-      setActive: (job: Job) => void;
+      setActive: (job: Job | null) => void;
     }
   | {
       job: Job;
       id: string;
       isPreview?: false;
       ref: React.RefObject<HTMLDivElement>;
+      setActive: (job: Job | null) => void;
+      jobs: Job[];
     };
 
 const ExoticImage = forwardRef<HTMLImageElement, ImageProps>(
@@ -30,7 +33,7 @@ const ExoticImage = forwardRef<HTMLImageElement, ImageProps>(
 const MotionComponent = motion(ExoticImage);
 
 export function JobCard(props: JobCardProps) {
-  const { job, id, isPreview } = props;
+  const { job, id, isPreview, setActive } = props;
   return (
     <motion.article
       layoutId={`card-${job.title}-${id}`}
@@ -57,7 +60,7 @@ export function JobCard(props: JobCardProps) {
             key={`card-header-${job.title}-${id}`}
             className={`${isPreview ? "p-4" : "p-8"} flex flex-col gap-2`}
           >
-            <motion.div className="flex justify-between gap-1">
+            <motion.div className="flex flex-col justify-between gap-1 md:flex-row">
               <motion.div>
                 <motion.h2
                   layoutId={`title-${job.title}-${id}`}
@@ -98,22 +101,57 @@ export function JobCard(props: JobCardProps) {
             <motion.div
               layoutId={`description-${job.title}-${id}`}
               key={`description-${job.title}-${id}`}
-              className={`${isPreview ? "text-sm" : "flex flex-col gap-2 pt-8 text-base"} text-muted-foreground`}
+              className={`${isPreview ? "text-sm" : "flex flex-col gap-2 pt-2 text-base md:pt-8"} text-muted-foreground`}
             >
               {isPreview ? job.description.preview : job.description.content}
             </motion.div>
           </motion.div>
         </motion.div>
         <motion.div
-          className="flex items-center gap-4 p-6 pt-0"
+          className="flex items-center justify-between gap-4 p-6 pt-0"
           layoutId={`card-footer-${job.title}-${id}`}
           key={`card-footer-${job.title}-${id}`}
         >
-          {isPreview && (
+          {isPreview ? (
             <ShineButton onClick={() => props.setActive(job)}>
               <IoIosExpand className="text-lg" />
               View
             </ShineButton>
+          ) : (
+            <>
+              <ShineButton onClick={() => setActive(null)}>
+                <IoClose className="text-lg" />
+                Close
+              </ShineButton>
+              <div className="flex gap-4">
+                <ShineButton
+                  onClick={() =>
+                    setActive(
+                      props.jobs[
+                        (props.jobs.indexOf(job) + props.jobs.length - 1) %
+                          props.jobs.length
+                      ],
+                    )
+                  }
+                >
+                  <IoArrowBack className="text-lg" />
+                  Previous
+                </ShineButton>
+
+                <ShineButton
+                  onClick={() =>
+                    setActive(
+                      props.jobs[
+                        (props.jobs.indexOf(job) + 1) % props.jobs.length
+                      ],
+                    )
+                  }
+                >
+                  Next
+                  <IoArrowForward className="text-lg" />
+                </ShineButton>
+              </div>
+            </>
           )}
         </motion.div>
       </ScrollArea>
