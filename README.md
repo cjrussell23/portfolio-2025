@@ -57,9 +57,3 @@ portfolio-2025/
 └── hooks/        # Custom hooks
 ├── lib/          # Utility functions
 ```
-
-## Contact
-
-Your Name - your.email@example.com
-
-Project Link: [https://github.com/yourusername/portfolio-2025](https://github.com/yourusername/portfolio-2025)
