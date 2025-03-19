@@ -42,6 +42,7 @@
     "@react-pdf/types": "^2.7.0",
     "@tabler/icons-react": "^3.23.0",
     "@types/nodemailer": "^6.4.17",
+    "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",

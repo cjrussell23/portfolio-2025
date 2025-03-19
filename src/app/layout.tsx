@@ -1,8 +1,8 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import { exo2, lato } from "./fonts";
 import "./globals.css";
-
 export const metadata: Metadata = {
   title: "Charles Russell Developer Portfolio",
   description:
@@ -21,6 +21,7 @@ export default function RootLayout({
           className={`size-full min-h-screen bg-background text-foreground antialiased bg-dot-white/[0.2]`}
         >
           {children}
+          <SpeedInsights />
         </body>
       </html>
     </ViewTransitions>
