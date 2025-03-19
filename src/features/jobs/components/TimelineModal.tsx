@@ -22,9 +22,11 @@ export const TimelineModal = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const jobRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [height, setHeight] = useState(0);
   const [active, setActive] = useState<Job | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -34,6 +36,10 @@ export const TimelineModal = ({
 
     if (active) {
       document.body.style.overflow = "hidden";
+      const jobElement = jobRefs.current.get(active.title);
+      if (jobElement && !isElementInViewport(jobElement)) {
+        jobElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     } else {
       document.body.style.overflow = "auto";
     }
@@ -41,6 +47,17 @@ export const TimelineModal = ({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
+
+  const isElementInViewport = (el: HTMLElement) => {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= window.innerHeight &&
+      rect.right <= window.innerWidth
+    );
+  };
+
   useOutsideClick(cardRef, () => setActive(null));
 
   useEffect(() => {
@@ -109,7 +126,13 @@ export const TimelineModal = ({
         className="relative mx-auto flex max-w-7xl flex-col gap-20 pb-20 md:gap-40"
       >
         {data.map((item, index) => (
-          <div key={index} className="flex justify-start md:gap-10">
+          <div
+            key={index}
+            className="flex justify-start md:gap-10"
+            ref={(el) => {
+              if (el) jobRefs.current.set(item.title, el);
+            }}
+          >
             <div className="sticky top-40 z-40 flex max-w-xs flex-col items-center self-start md:w-full md:flex-row lg:max-w-sm">
               <div className="absolute left-0 top-1.5 flex size-6 items-center justify-center rounded-full bg-foreground md:left-3 md:top-0 md:size-10">
                 <div className="h-4 w-4 rounded-full border border-foreground bg-background/30 p-2" />

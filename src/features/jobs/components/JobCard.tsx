@@ -136,6 +136,7 @@ export function JobCard(props: JobCardProps) {
                     ],
                   )
                 }
+                disabled={props.jobs.indexOf(job) === 0}
               >
                 <IoArrowBack className="text-lg" />
                 Previous
@@ -144,9 +145,11 @@ export function JobCard(props: JobCardProps) {
               <ShineButton
                 onClick={() =>
                   setActive(
-                    props.jobs[
-                      (props.jobs.indexOf(job) + 1) % props.jobs.length
-                    ],
+                    props.jobs.indexOf(job) === props.jobs.length - 1
+                      ? null
+                      : props.jobs[
+                          (props.jobs.indexOf(job) + 1) % props.jobs.length
+                        ],
                   )
                 }
               >

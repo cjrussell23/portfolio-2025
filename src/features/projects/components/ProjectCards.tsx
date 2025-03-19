@@ -21,6 +21,7 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
   const [active, setActive] = useState<GithubRepo | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
+  const projectRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -31,6 +32,10 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
 
     if (active) {
       document.body.style.overflow = "hidden";
+      const projectElement = projectRefs.current.get(active.repo.name);
+      if (projectElement && !isElementInViewport(projectElement)) {
+        projectElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     } else {
       document.body.style.overflow = "auto";
     }
@@ -38,6 +43,16 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
+
+  const isElementInViewport = (el: HTMLElement) => {
+    const rect = el.getBoundingClientRect();
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= window.innerHeight &&
+      rect.right <= window.innerWidth
+    );
+  };
 
   useOutsideClick(ref, () => setActive(null));
 
@@ -98,13 +113,20 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
       </AnimatePresence>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {repos.map((repo) => (
-          <Project
+          <div
             key={repo.repo.name}
-            repo={repo}
-            id={id}
-            setActive={setActive}
-            isPreview={true}
-          />
+            ref={(el) => {
+              if (el) projectRefs.current.set(repo.repo.name, el);
+            }}
+          >
+            <Project
+              key={repo.repo.name}
+              repo={repo}
+              id={id}
+              setActive={setActive}
+              isPreview={true}
+            />
+          </div>
         ))}
       </div>
     </section>
@@ -271,10 +293,6 @@ function Project(props: ProjectProps) {
       >
         {isPreview ? (
           <>
-            <ShineButton onClick={() => props.setActive(repo)}>
-              <IoIosExpand className="text-lg" />
-              View
-            </ShineButton>
             {repo.repo.homepage && (
               <Link
                 href={repo.repo.homepage}
@@ -287,6 +305,10 @@ function Project(props: ProjectProps) {
                 </ShineButton>
               </Link>
             )}
+            <ShineButton onClick={() => props.setActive(repo)}>
+              <IoIosExpand className="text-lg" />
+              View
+            </ShineButton>
           </>
         ) : (
           <>
@@ -329,6 +351,7 @@ function Project(props: ProjectProps) {
                       ],
                     )
                   }
+                  disabled={props.repos.indexOf(repo) === 0}
                 >
                   <IoArrowBack className="text-lg" />
                   Previous
@@ -336,9 +359,11 @@ function Project(props: ProjectProps) {
                 <ShineButton
                   onClick={() =>
                     setActive(
-                      props.repos[
-                        (props.repos.indexOf(repo) + 1) % props.repos.length
-                      ],
+                      props.repos.indexOf(repo) === props.repos.length - 1
+                        ? null
+                        : props.repos[
+                            (props.repos.indexOf(repo) + 1) % props.repos.length
+                          ],
                     )
                   }
                 >
