@@ -42,7 +42,7 @@ export function JobCard(props: JobCardProps) {
       className="m-2 flex flex-col justify-between rounded-xl border bg-card text-card-foreground shadow md:max-w-screen-md"
     >
       <ScrollArea
-        className={`${isPreview ? null : "flex h-[calc(100vh-7rem)]"}`}
+        className={`${isPreview ? null : "flex h-[calc(100svh-7rem)]"}`}
       >
         <motion.div
           layoutId={`content-${job.title}-${id}`}

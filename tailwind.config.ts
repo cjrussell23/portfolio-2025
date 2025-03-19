@@ -12,8 +12,8 @@ export default {
 		extend: {
 			extend: {
 				fontFamily: {
-					lato: ['var(--font-lato)'],
-					exo: ['var(--font-exo)'],
+					sans: ['var(--font-lato)'],
+					serif: ['var(--font-exo)'],
 				},
 			},
 			colors: {

@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className="size-full">
+      <html lang="en" className={`size-full ${exo2.variable} ${lato.variable}`}>
         <body
-          className={`${exo2.variable} ${lato.variable} bg-dot-white/[0.2] size-full min-h-screen bg-background text-foreground antialiased`}
+          className={`size-full min-h-screen bg-background text-foreground antialiased bg-dot-white/[0.2]`}
         >
           {children}
         </body>

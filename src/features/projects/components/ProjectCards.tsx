@@ -253,7 +253,7 @@ function Project(props: ProjectProps) {
         >
           {repo.readme.content && (
             <ScrollArea
-              className={`${!isPreview ? "h-[calc(100vh-20rem)]" : null}`}
+              className={`${!isPreview ? "h-[calc(100svh-24rem)]" : null}`}
             >
               {repo.readme.content && !isPreview ? (
                 <div className="max-w-full rounded-md bg-background/80 p-4">

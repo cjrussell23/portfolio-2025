@@ -8,6 +8,7 @@ export type Social = {
   href: string;
   website?: {
     title: string;
+    target?: string;
     icon: IconType;
   }
   resume?: {
@@ -26,6 +27,7 @@ export const socials: Social[] = [
     website: {
       title: "GitHub",
       icon: IoLogoGithub,
+      target: "_blank",
     }
 
   },
@@ -38,6 +40,7 @@ export const socials: Social[] = [
     website: {
       title: "LinkedIn",
       icon: IoLogoLinkedin,
+      target: "_blank",
     }
   },
   {

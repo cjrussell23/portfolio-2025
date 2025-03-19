@@ -1,5 +1,6 @@
 import ShineButton from "@/components/ShineButton";
 import HandWave from "@/features/home/components/HandWave";
+import PDFDownloadLink from "@/features/resume/components/reactPDF/PDFDownloadLink";
 import { socials } from "@/lib/content/socials";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
@@ -45,15 +46,21 @@ export default function HomePageHero() {
               if (!website) {
                 return null;
               }
+              if (website.title === "Resume") {
+                return (
+                  <PDFDownloadLink key={index} download={false}>
+                    <website.icon className="md:text-lg" />
+                    Resume
+                  </PDFDownloadLink>
+                );
+              }
               return (
-                <div key={index}>
-                  <Link key={index} href={href} target="_blank">
-                    <ShineButton>
-                      <website.icon className="md:text-lg" />
-                      {website.title}
-                    </ShineButton>
-                  </Link>
-                </div>
+                <Link key={index} href={href} target={website.target}>
+                  <ShineButton>
+                    <website.icon className="md:text-lg" />
+                    {website.title}
+                  </ShineButton>
+                </Link>
               );
             })}
           </div>
