@@ -12,11 +12,15 @@ export default async function Projects() {
   const repos = (await getGithubRepos())
     .filter((repo) => !repo.name.includes("cjrussell23"))
     .sort((a, b) => (a.created_at > b.created_at ? -1 : 1));
-  const reposWithReadme: GithubRepo[] = await Promise.all(
+  const reposWithReadme = await Promise.all(
     repos.map(async (repo) => {
       const readme = await getGithubRepoReadme(repo.name);
-      return { repo: repo, readme: readme };
+      return { repo, readme };
     }),
   );
-  return <ProjectCards repos={reposWithReadme} />;
+  // Filter out repos without READMEs
+  const validRepos = reposWithReadme.filter(
+    (item): item is GithubRepo => item.readme !== null
+  );
+  return <ProjectCards repos={validRepos} />;
 }
