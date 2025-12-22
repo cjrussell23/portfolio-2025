@@ -7,7 +7,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "next-view-transitions";
-import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { CiGlobe } from "react-icons/ci";
 import { TbBrandGithub } from "react-icons/tb";
@@ -177,11 +176,9 @@ function Project(props: ProjectProps) {
         className="flex flex-col space-y-1.5"
       >
         {isPreview && image && (
-          <Image
+          <img
             src={image}
             alt={repo.repo.name}
-            width={200}
-            height={200}
             className="h-52 w-full rounded-md object-cover object-top"
           />
         )}
@@ -190,6 +187,13 @@ function Project(props: ProjectProps) {
           key={`card-header-${repo.repo.id}-${id}`}
           className="flex flex-col space-y-1.5 p-4"
         >
+          {isPreview && image && (
+            <img
+              src={image}
+              alt={repo.repo.name}
+              className="h-52 w-full rounded-md object-cover object-top"
+            />
+          )}
           <motion.h3
             layoutId={`title-${repo.repo.id}-${id}`}
             className="text-xl font-semibold leading-none tracking-tight"
