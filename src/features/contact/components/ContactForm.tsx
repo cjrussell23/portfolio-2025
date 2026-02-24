@@ -39,10 +39,8 @@ export default function ContactForm() {
       sendCopy: false,
     },
   });
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit(data: z.infer<typeof contactFormSchema>) {
     setFormStatus("pending");
-    const data = form.getValues();
     const response = await contactFormAction(data);
     if (response.success) {
       setFormStatus("success");
@@ -59,7 +57,7 @@ export default function ContactForm() {
     <section>
       <Card className="relative">
         <Form {...form}>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardHeader>
               <CardTitle>Contact Me</CardTitle>
             </CardHeader>
