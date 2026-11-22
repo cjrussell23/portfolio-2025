@@ -1,4 +1,5 @@
 import ContactForm from "@/features/contact/components/ContactForm";
+import FeaturedWork from "@/features/projects/components/FeaturedWork";
 import Projects from "@/features/projects/projects";
 import WorkExperience from "../../jobs/components/WorkExperience";
 import { FavSkills } from "../../skills/components/FavSkills";
@@ -14,6 +15,7 @@ export default function HomePage() {
         <FavSkills />
 
         <WorkExperience />
+        <FeaturedWork />
         <Projects />
         <SkillsTabs />
         <ContactForm />
