@@ -58,14 +58,10 @@ export function ProjectCards(props: { repos: GithubRepo[] }) {
 
   return (
     <section className="flex flex-col gap-4" id="projects">
-      <h2>Projects</h2>
+      <h2>Open Source</h2>
       <p className="text-muted-foreground">
-        These are my public repositories pulled from my GitHub account using the
-        GitHub API. This mostly contains projects that I worked on in my free
-        time while I was in school and learning to code. The code quality may
-        vary as I was learning new things and experimenting so it does not
-        reflect my current coding style. However, I am proud of the work I did
-        and it is still useful to look back on.
+        Personal projects with public code on GitHub, pulled live from the
+        GitHub API.
       </p>
       <AnimatePresence>
         {active && (
@@ -158,9 +154,12 @@ function Project(props: ProjectProps) {
     const content = Buffer.from(repo.readme.content, "base64").toString(
       "utf-8",
     );
-    const match = content.match(/!\[.*\]\((.*)\)/);
-    if (match) {
-      image = match[1];
+    const match = content.match(/!\[[^\]]*\]\(([^)\s]+)/);
+    if (match?.[1]) {
+      // READMEs usually point at their own files with relative paths.
+      image = /^https?:\/\//.test(match[1])
+        ? match[1]
+        : `https://raw.githubusercontent.com/cjrussell23/${repo.repo.name}/HEAD/${match[1].replace(/^\.?\//, "")}`;
     }
   }
 

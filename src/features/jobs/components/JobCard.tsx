@@ -6,7 +6,7 @@ import Image, { ImageProps } from "next/image";
 import { forwardRef } from "react";
 import { IoIosExpand } from "react-icons/io";
 import { IoArrowBack, IoArrowForward, IoClose } from "react-icons/io5";
-import { Job } from "../../../lib/content/jobs";
+import type { Job } from "@/features/jobs/types";
 type JobCardProps =
   | {
       job: Job;
@@ -95,7 +95,6 @@ export function JobCard(props: JobCardProps) {
                     }
               `}
                   </motion.p>
-                  <motion.p>{job.location}</motion.p>
                 </motion.div>
               )}
             </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 import { JobCard } from "@/features/jobs/components/JobCard";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { Job } from "@/lib/content/jobs";
+import type { Job } from "@/features/jobs/types";
 import {
   AnimatePresence,
   motion,

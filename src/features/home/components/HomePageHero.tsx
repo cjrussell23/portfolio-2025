@@ -1,12 +1,13 @@
 import ShineButton from "@/components/ShineButton";
 import HandWave from "@/features/home/components/HandWave";
-import PDFDownloadLink from "@/features/resume/components/reactPDF/PDFDownloadLink";
+import { getResume } from "@/features/resume/jobAiResume";
 import { socials } from "@/lib/content/socials";
 import { Link } from "next-view-transitions";
 import Image from "next/image";
 
 import { TbMapPin, TbSchool } from "react-icons/tb";
-export default function HomePageHero() {
+export default async function HomePageHero() {
+  const resume = await getResume();
   return (
     <section className="flex flex-col-reverse gap-8 md:flex-row md:items-center md:gap-16 md:pt-24">
       <div className="flex flex-col gap-6 md:gap-10">
@@ -16,6 +17,9 @@ export default function HomePageHero() {
             <HandWave />
           </h1>
           <h2 className="text-muted-foreground">{`Full Stack Software Developer`}</h2>
+          <p className="max-w-prose pt-2 text-muted-foreground">
+            {resume.summary}
+          </p>
         </div>
         <div className="flex flex-col gap-4">
           <Link
@@ -46,16 +50,14 @@ export default function HomePageHero() {
               if (!website) {
                 return null;
               }
-              if (website.title === "Resume") {
-                return (
-                  <PDFDownloadLink key={index} download={false}>
-                    <website.icon className="md:text-lg" />
-                    Resume
-                  </PDFDownloadLink>
-                );
-              }
               return (
-                <Link key={index} href={href} target={website.target}>
+                <Link
+                  key={index}
+                  href={website.title === "Resume" ? resume.pdfUrl : href}
+                  target={
+                    website.title === "Resume" ? "_blank" : website.target
+                  }
+                >
                   <ShineButton>
                     <website.icon className="md:text-lg" />
                     {website.title}

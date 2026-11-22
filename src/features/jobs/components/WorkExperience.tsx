@@ -1,14 +1,12 @@
-"use client";
-
 import { TimelineModal } from "@/features/jobs/components/TimelineModal";
-import { jobs } from "../../../lib/content/jobs";
+import { getResume } from "@/features/resume/jobAiResume";
+import { jobsFromResume } from "../fromResume";
 
-export default function WorkExperience() {
+export default async function WorkExperience() {
+  const resume = await getResume();
   return (
     <TimelineModal
-      data={Object.values(jobs).map((job) => {
-        return job;
-      })}
+      data={jobsFromResume(resume)}
       title="Work Experience"
       id="work-experience"
     />
