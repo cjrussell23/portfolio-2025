@@ -5,12 +5,16 @@ import {
 import type { Job } from "./types";
 
 /** "Jan 2026", "2026" or "Present" as a date; null for "Present" or anything unreadable. */
+const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+// Mid-month at noon UTC, so no timezone can shift the month when the page is rendered.
 function parseDate(text: string): Date | null {
-  const t = text.trim();
-  if (!t || /present|current/i.test(t)) return null;
-  if (/^\d{4}$/.test(t)) return new Date(Number(t), 0, 1);
-  const d = new Date(`1 ${t}`);
-  return Number.isNaN(d.getTime()) ? null : d;
+  const t = text.trim().toLowerCase();
+  if (!t || /present|current/.test(t)) return null;
+  const year = t.match(/\b(19|20)\d{2}\b/)?.[0];
+  if (!year) return null;
+  const month = Math.max(0, months.findIndex((m) => t.startsWith(m)));
+  return new Date(Date.UTC(Number(year), month, 15, 12));
 }
 
 const images: [RegExp, string, number, number][] = [

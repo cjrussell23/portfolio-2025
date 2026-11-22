@@ -154,9 +154,12 @@ function Project(props: ProjectProps) {
     const content = Buffer.from(repo.readme.content, "base64").toString(
       "utf-8",
     );
-    const match = content.match(/!\[.*\]\((.*)\)/);
-    if (match) {
-      image = match[1];
+    const match = content.match(/!\[[^\]]*\]\(([^)\s]+)/);
+    if (match?.[1]) {
+      // READMEs usually point at their own files with relative paths.
+      image = /^https?:\/\//.test(match[1])
+        ? match[1]
+        : `https://raw.githubusercontent.com/cjrussell23/${repo.repo.name}/HEAD/${match[1].replace(/^\.?\//, "")}`;
     }
   }
 
