@@ -6,7 +6,7 @@ import { z } from "zod";
  */
 export const RESUME_URL =
   process.env.JOB_AI_RESUME_URL ??
-  "https://jobs.chjrussell.com/api/public/resumes/1QPn48neKQbM8MTseyy5h0lkexng5i8j4YAlSLPvMQA";
+  "https://jobs.chjrussell.com/api/public/resumes/TK66ENWJZDMlV5uRhagNRvsEgIb8uCJNRhFciVvem58";
 
 const entrySchema = z.object({
   title: z.string(),
