@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const repoSchema = z.object({
   id: z.number(),
@@ -28,7 +28,7 @@ export const readmeSchema = z.object({
   html_url: z.string().url().nullable(),
   git_url: z.string().url(),
   download_url: z.string().url().nullable(),
-  type: z.literal("file"),
+  type: z.literal('file'),
   content: z.string().nullable(), // Base64-encoded content (may be null if not included in response)
   encoding: z.string().nullable(), // Typically "base64" if content is included
 });

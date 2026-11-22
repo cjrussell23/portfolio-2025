@@ -1,16 +1,14 @@
 import { readmeSchema } from "./schemas";
 
+
 export async function getGithubRepoReadme(name: string) {
   try {
-    const response = await fetch(
-      `https://api.github.com/repos/cjrussell23/${name}/readme`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        },
-        next: { revalidate: 3600 }, // Cache for 1 hour
+    const response = await fetch(`https://api.github.com/repos/cjrussell23/${name}/readme`, {
+      headers: {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       },
-    );
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
 
     if (!response.ok) {
       // Return null if README not found (404) or other errors
